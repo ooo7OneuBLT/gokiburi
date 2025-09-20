@@ -1,0 +1,9 @@
+name: gokiburi
+version: '0.1'
+main: me.ooo7Oneu.gokiburi.Gokiburi
+api-version: '1.21'
+commands:
+  people:
+  goki:
+  start:
+  reset:
