@@ -1,6 +1,8 @@
 package me.ooo7Oneu.gokiburi;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Gokiburi extends JavaPlugin {
@@ -13,6 +15,9 @@ public final class Gokiburi extends JavaPlugin {
         Bukkit.getLogger().info("gokiburiをロード");
         Bukkit.getLogger().info("[gokiburi] version:" + getPluginVersion());
 
+        saveDefaultConfig();
+        file.configConfig = getConfig();
+
         setInstance(this);
         file.load();
 
@@ -20,6 +25,11 @@ public final class Gokiburi extends JavaPlugin {
         this.getCommand("goki").setExecutor(new goki());
         this.getCommand("start").setExecutor(new start(this));
         this.getCommand("reset").setExecutor(new reset());
+
+        Bukkit.getServer().getPluginManager().registerEvents(new PoisonListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new playerListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new deliveryEventHandler(this), this);
+
 
         getServer().getPluginManager().registerEvents(new PoisonListener(), this);
     }
@@ -30,7 +40,7 @@ public final class Gokiburi extends JavaPlugin {
     }
 
     public static String getPluginVersion() {
-        return "0.1";
+        return "0.2";
     }
 
     public static Gokiburi getInstance() {
@@ -39,5 +49,11 @@ public final class Gokiburi extends JavaPlugin {
 
     public static void setInstance(Gokiburi instance) {
         Gokiburi.instance = instance;
+    }
+
+    public static void debug(String message) {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.sendMessage(message);
+        }
     }
 }

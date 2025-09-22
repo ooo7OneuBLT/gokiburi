@@ -11,6 +11,7 @@ public class file {
 
     public static File playerDataFile;
     public static FileConfiguration playerDataConfig;
+    public static FileConfiguration configConfig;
 
     public static void load() {
         File pluginFolder = Gokiburi.getInstance().getDataFolder();
